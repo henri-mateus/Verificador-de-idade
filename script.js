@@ -1,16 +1,34 @@
 function verificar() {
-  var data = new Date();
-  var ano = data.getFullYear();
-  var fano = document.getElementById("txtano");
+  var dataAtual = new Date();
+  var anoAtual = dataAtual.getFullYear();
+  var mesAtual = dataAtual.getMonth() + 1;
+  var diaAtual = dataAtual.getDate();
+
+  var fdata = document.getElementById("txtano").value;
   var res = document.querySelector("div#res");
-  if (fano.value.length == 0 || Number(fano.value) > ano) {
+
+  if (fdata.length == 0) {
     window.alert("[ERRO] Verifique os dados e tente novamente!");
   } else {
+    var dataNascimento = new Date(fdata);
+    var anoNascimento = dataNascimento.getFullYear();
+    var mesNascimento = dataNascimento.getMonth() + 1;
+    var diaNascimento = dataNascimento.getDate();
+
+    var idade = anoAtual - anoNascimento;
+
+    if (
+      mesAtual < mesNascimento ||
+      (mesAtual == mesNascimento && diaAtual < diaNascimento)
+    ) {
+      idade--;
+    }
+
     var fsex = document.getElementsByName("radsex");
-    var idade = ano - Number(fano.value);
     var genero = "";
     var img = document.createElement("img");
     img.setAttribute("id", "foto");
+
     if (fsex[0].checked) {
       genero = "Homem";
       if (idade >= 0 && idade < 10) {
